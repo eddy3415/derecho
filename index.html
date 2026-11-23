@@ -276,7 +276,11 @@
   @media (max-width:760px){.asociado{flex-basis:calc(50% - 1rem);max-width:none}}
   /* En celulares muy pequeños: 1 por fila */
   @media (max-width:380px){.asociado{flex-basis:100%}}
-
+  /* ---------- Video ---------- */
+  /* Marco del video: proporción 16:9, ancho máximo y borde blanco */
+  .video-marco{max-width:56rem;aspect-ratio:16/9;border:3px solid var(--blanco);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  /* El video (o el reproductor de YouTube) rellena todo el marco */
+  .video-marco iframe,.video-marco video{width:100%;height:100%;border:0;display:block;background:#000}
   /* ---------- Ajustes responsivos ---------- */
   /* Evita que iPhone agrande el texto al girar la pantalla */
   html{-webkit-text-size-adjust:100%}
@@ -373,6 +377,7 @@
       <li><a href="#servicios">Servicios</a></li>
       <!-- Enlace a Nosotros -->
       <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#video">Video</a></li>
       <!-- Enlace a Contacto -->
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -509,7 +514,15 @@
       </article>
     </div>
   </section>
-
+  <!-- Sección de video -->
+  <section class="bloque" id="video">
+    <!-- Título de la sección -->
+    <h2>Conoce al despacho</h2>
+    <!-- Marco del video: reemplaza el div de adentro por tu video (ver opciones abajo) -->
+    <div class="video-marco">
+      <iframe src="https://www.youtube.com/watch?v=OqDgaTIg6og" title="Video del despacho" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
   <!-- Sección de contacto -->
   <section class="bloque" id="contacto">
     <!-- Título -->
