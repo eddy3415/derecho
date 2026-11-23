@@ -1,0 +1,1011 @@
+<!-- Indica que es un documento HTML5 -->
+<!DOCTYPE html>
+<!-- Raíz del documento; idioma español -->
+<html lang="es">
+<!-- Información de la página (no se muestra) -->
+<head>
+<!-- Codificación UTF-8 para acentos y ñ -->
+<meta charset="UTF-8">
+<!-- Hace que la página se adapte al celular -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Título de la pestaña del navegador -->
+<title>Cuadrante y Asociados | Asesoría jurídica con certeza y compromiso</title>
+<!-- Acelera la carga de Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- Carga las fuentes Cormorant Garamond e Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Variables globales: se definen una vez y se reutilizan con var(--nombre) */
+  :root{
+    --cielo:#4fa8e0;        /* Azul cielo (fondo) */
+    /* Azul más oscuro para textos sobre fondo blanco */
+    --cielo-oscuro:#3b8fc8;
+    /* Blanco para textos y bordes */
+    --blanco:#ffffff;
+    /* Tipografía con serifa para títulos */
+    --serif:'Cormorant Garamond',Georgia,serif;
+    /* Tipografía sin serifa para texto corrido */
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  }
+  /* Reinicio: quita márgenes y rellenos y hace que el ancho incluya el padding */
+  *{box-sizing:border-box;margin:0;padding:0}
+  /* Desplazamiento suave al pulsar los enlaces del menú */
+  html{scroll-behavior:smooth}
+  /* Blanco para textos y bordes */
+  body{background:var(--cielo);color:var(--blanco);font-family:var(--sans);line-height:1.65}
+  /* Los enlaces heredan el color del texto que los rodea */
+  a{color:inherit}
+
+  /* ---------- Barra de navegación ---------- */
+  /* Barra superior fija (menú) */
+  header{
+    /* Se queda fija arriba, pegada a los bordes superior, izquierdo y derecho */
+    position:fixed;inset:0 0 auto 0;z-index:20;
+    /* Logo a la izquierda y menú a la derecha, alineados al centro verticalmente */
+    display:flex;align-items:center;justify-content:space-between;
+    /* Espacio interior que se adapta al ancho de la pantalla */
+    padding:.6rem clamp(1rem,4vw,3rem);
+    /* Animación suave al cambiar de fondo/sombra */
+    transition:background .3s, box-shadow .3s;
+  }
+  /* Al bajar con el scroll, la barra se vuelve azul sólida con sombra (lo activa el JavaScript) */
+  header.solid{background:rgba(79,168,224,.96);box-shadow:0 2px 14px rgba(0,0,0,.15)}
+  /* Contenedor del logo + nombre: en fila, sin subrayado */
+  .marca{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+  /* Tipografía con serifa para títulos */
+  .nombre{font-family:var(--serif);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.1;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+  .logo{height:64px;width:auto;display:block;mix-blend-mode:multiply} /* quita el fondo blanco del logo */
+  /* Lista del menú en fila, sin viñetas */
+  nav ul{display:flex;gap:clamp(1rem,3vw,2.2rem);list-style:none}
+  /* Enlaces del menú: sin subrayado y con línea inferior transparente */
+  nav a{text-decoration:none;font-weight:500;font-size:.95rem;padding:.3rem 0;border-bottom:2px solid transparent}
+  /* Blanco para textos y bordes */
+  nav a:hover,nav a:focus-visible{border-bottom-color:var(--blanco);outline:none}
+
+  /* ---------- Inicio con imagen que se desvanece ---------- */
+  /* Imagen de fondo del inicio (se desvanece al hacer scroll) */
+    #fondo-inicio {
+        /* Cubre toda la pantalla y queda detrás del contenido */
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        /* Imagen externa (archivo fondo-inicio.jpg, en la misma carpeta), centrada y ajustada al tamaño de pantalla */
+        background: url('https://gaceta.politicas.unam.mx/wp-content/uploads/2023/05/3.jpg') center/cover no-repeat;
+        /* Empieza visible; no bloquea clics; avisa al navegador que la opacidad cambiará */
+        opacity: 1;
+        pointer-events: none;
+        will-change: opacity;
+    }
+  #fondo-inicio::after{ /* tinte azul para que las letras blancas se lean */
+    /* Capa vacía que cubre la imagen */
+    content:"";position:absolute;inset:0;
+    /* Degradado azul semitransparente para que el texto blanco se lea */
+    background:linear-gradient(180deg,rgba(40,120,180,.55),rgba(40,120,180,.35) 50%,rgba(40,120,180,.65));
+  }
+  /* Sección principal (portada) */
+  #inicio{
+    /* Queda sobre la imagen de fondo y ocupa al menos toda la altura de la pantalla */
+    position:relative;z-index:1;min-height:100vh;
+    /* Apila el contenido y lo centra verticalmente, alineado a la izquierda */
+    display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+    /* Espacio interior (arriba deja lugar a la barra fija) */
+    padding:7rem clamp(1.2rem,8vw,7rem) 4rem;
+  }
+  /* Título grande de la portada */
+  #inicio h1{
+    /* Tipografía con serifa para títulos */
+    font-family:var(--serif);font-weight:700;
+    /* Tamaño del título: mínimo 2.6rem, máximo 5.5rem, según el ancho */
+    font-size:clamp(2.6rem,7vw,5.5rem);line-height:1.05;max-width:14ch;
+    /* Sombra para que el título destaque sobre la foto */
+    text-shadow:0 2px 18px rgba(0,0,0,.35);
+  }
+  /* Frase de la portada */
+  #inicio p{
+    /* Separación arriba y ancho máximo del párrafo */
+    margin-top:1.4rem;max-width:36rem;font-size:clamp(1.05rem,2vw,1.35rem);
+    /* Sombra suave del texto */
+    text-shadow:0 1px 10px rgba(0,0,0,.4);
+  }
+  /* Botón con borde blanco (ej. "Agenda una consulta") */
+  .btn{
+    /* Se comporta como bloque en línea, con espacio arriba y relleno */
+    display:inline-block;margin-top:2rem;padding:.9rem 2rem;
+    /* Blanco para textos y bordes */
+    border:2px solid var(--blanco);color:var(--blanco);text-decoration:none;font-weight:600;
+    /* Animación suave al cambiar de fondo/sombra */
+    transition:background .25s,color .25s;
+  }
+  /* Azul más oscuro para textos sobre fondo blanco */
+  .btn:hover,.btn:focus-visible{background:var(--blanco);color:var(--cielo-oscuro);outline:none}
+
+  /* ---------- Secciones (fondo azul cielo) ---------- */
+  /* Contenedor del contenido principal, sobre el fondo azul */
+  main{position:relative;z-index:1;background:var(--cielo)}
+  /* Cada sección: espacio vertical y lateral adaptable */
+  section.bloque{padding:clamp(4rem,10vw,7rem) clamp(1.2rem,8vw,7rem)}
+  /* Tipografía con serifa para títulos */
+  h2{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:2rem}
+  /* Cuadrícula de servicios: columnas automáticas de mínimo 240px */
+  .servicios{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem 3rem}
+  /* Cada servicio lleva una línea blanca arriba */
+  .servicios div{border-top:2px solid rgba(255,255,255,.7);padding-top:1rem}
+  /* Tipografía con serifa para títulos */
+  .servicios h3{font-family:var(--serif);font-size:1.6rem;margin-bottom:.4rem}
+  /* Párrafos de "Quiénes somos": ancho máximo para leer cómodo */
+  #nosotros p{max-width:44rem;font-size:1.1rem;margin-bottom:1rem}
+  /* Lista de contacto sin viñetas */
+  #contacto ul{list-style:none;font-size:1.15rem}
+  /* Separación entre datos de contacto */
+  #contacto li{margin-bottom:.5rem}
+  /* Blanco para textos y bordes */
+  .mapa{margin-top:2rem;max-width:44rem;border:3px solid var(--blanco)}
+  /* El mapa ocupa todo el ancho del marco y mide 340px de alto */
+  .mapa iframe{display:block;width:100%;height:340px;border:0}
+  /* Pie de página centrado con línea superior */
+  footer{padding:2rem;text-align:center;font-size:.9rem;border-top:1px solid rgba(255,255,255,.4)}
+
+  /* Fuerza a ocultar los elementos con el atributo hidden */
+  [hidden]{display:none!important}
+  /* Oculta visualmente un texto pero lo deja disponible para lectores de pantalla */
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* Menú móvil */
+  /* Blanco para textos y bordes */
+  .menu-btn{display:none;background:none;border:2px solid var(--blanco);color:var(--blanco);font-size:1.4rem;line-height:1;padding:.3rem .65rem;cursor:pointer}
+
+  /* Botones y formulario de cita */
+  /* Blanco para textos y bordes */
+  .link-btn{margin-top:.8rem;background:none;border:0;border-bottom:2px solid var(--blanco);color:var(--blanco);font:600 .95rem var(--sans);padding:.2rem 0;cursor:pointer}
+  /* Resalte al pasar el cursor o enfocar */
+  .link-btn:hover,.link-btn:focus-visible{background:rgba(255,255,255,.2);outline:none}
+  /* Formulario de cita: margen y ancho máximo */
+  .cita{margin-top:2rem;max-width:44rem}
+  /* Etiqueta del formulario */
+  .cita label{display:block;font-weight:600;margin-bottom:.6rem}
+  /* Selector y botón en fila (se acomodan en varias líneas si no caben) */
+  .cita-fila{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+  /* Blanco para textos y bordes */
+  .cita select{padding:.85rem 1rem;font:1rem var(--sans);border:2px solid var(--blanco);background:var(--blanco);color:#1b4f78;min-width:14rem}
+  /* Tipografía sin serifa para texto corrido */
+  .cita .btn{margin-top:0;background:none;cursor:pointer;font-family:var(--sans);font-size:1rem}
+  /* Azul más oscuro para textos sobre fondo blanco */
+  .cita .btn:hover,.cita .btn:focus-visible{background:var(--blanco);color:var(--cielo-oscuro)}
+  /* Nota pequeña bajo el formulario */
+  .cita small{display:block;margin-top:.6rem;opacity:.9}
+
+  /* Asistente */
+  /* Blanco para textos y bordes */
+  .chat-launch{position:fixed;right:1rem;bottom:1rem;z-index:40;padding:.85rem 1.4rem;border:0;border-radius:2rem;background:var(--blanco);color:#1b4f78;font:700 1rem var(--sans);cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.3)}
+  /* Contorno amarillo cuando se navega con teclado */
+  .chat-launch:focus-visible,.chat button:focus-visible,.chat a:focus-visible,.chat input:focus-visible{outline:3px solid #ffd35c;outline-offset:2px}
+  /* Blanco para textos y bordes */
+  .chat{position:fixed;right:1rem;bottom:4.6rem;z-index:40;width:min(390px,calc(100vw - 2rem));max-height:min(620px,calc(100vh - 6.5rem));display:flex;flex-direction:column;background:#1f6ea8;color:var(--blanco);border:2px solid var(--blanco);border-radius:14px;box-shadow:0 10px 36px rgba(0,0,0,.4);overflow:hidden}
+  /* Tipografía con serifa para títulos */
+  .chat-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;background:#17557f;font-family:var(--serif);font-size:1.25rem}
+  /* Blanco para textos y bordes */
+  .chat-head button{background:none;border:0;color:var(--blanco);font-size:1.6rem;line-height:1;cursor:pointer}
+  /* Zona de mensajes con scroll propio */
+  .chat-log{flex:1;overflow-y:auto;padding:.8rem 1rem;min-height:140px}
+  /* Burbuja de mensaje del asistente */
+  .legal-message{margin:0 0 .7rem;padding:.6rem .8rem;background:rgba(255,255,255,.14);border-radius:10px;font-size:.93rem;line-height:1.5}
+  /* Blanco para textos y bordes */
+  .legal-user{background:var(--blanco);color:#17557f}
+  /* Fila de botones de preguntas rápidas */
+  .chat-quick{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .7rem}
+  /* Blanco para textos y bordes */
+  .chat-quick button{background:none;border:1px solid var(--blanco);color:var(--blanco);border-radius:1rem;padding:.3rem .75rem;font:.82rem var(--sans);cursor:pointer}
+  /* Blanco para textos y bordes */
+  .chat-quick button:hover{background:var(--blanco);color:#17557f}
+  /* Botón verde de WhatsApp */
+  .chat-wa{display:block;margin:0 1rem .7rem;padding:.6rem;text-align:center;background:#25d366;color:#073b1c;font-weight:700;text-decoration:none;border-radius:8px}
+  /* Formulario de escritura: campo y botón en fila */
+  .chat-form{display:flex;gap:.5rem;padding:0 1rem .8rem}
+  /* Tipografía sin serifa para texto corrido */
+  .chat-form input{flex:1;min-width:0;padding:.65rem .8rem;border:0;border-radius:8px;font:.95rem var(--sans)}
+  /* Blanco para textos y bordes */
+  .chat-form button{padding:.65rem 1rem;border:2px solid var(--blanco);background:none;color:var(--blanco);border-radius:8px;font:600 .9rem var(--sans);cursor:pointer}
+  /* Blanco para textos y bordes */
+  .chat-form button:hover{background:var(--blanco);color:#17557f}
+  /* Pie del chat (aviso de privacidad) */
+  .chat-foot{padding:0 1rem .8rem;font-size:.75rem;opacity:.9}
+  /* Blanco para textos y bordes */
+  .chat-foot a{color:var(--blanco)}
+
+  /* Reglas solo para pantallas de celular (760px o menos) */
+  @media (max-width:760px){
+    /* Botón ☰ del menú: oculto en computadora (se muestra en celular) */
+    .menu-btn{display:block}
+    /* Barra superior fija (menú) */
+    header{flex-wrap:nowrap}
+    /* El menú se vuelve un panel desplegable bajo la barra, oculto por defecto */
+    nav{position:absolute;top:100%;left:0;right:0;background:var(--cielo);box-shadow:0 8px 14px rgba(0,0,0,.2);display:none}
+    /* Muestra el menú cuando tiene la clase "open" */
+    nav.open{display:block}
+    /* Lista del menú en fila, sin viñetas */
+    nav ul{flex-direction:column;gap:0;padding:.5rem clamp(1rem,4vw,3rem) 1rem}
+    /* Enlaces grandes para tocar con el dedo */
+    nav li a{display:block;padding:.7rem 0;font-size:1rem}
+    /* Logo y nombre más pequeños en celular */
+    .logo{height:44px}.nombre{font-size:1.15rem}
+  }
+
+
+  /* ---------- Misión y Visión (zigzag) ---------- */
+  /* Contenedor de Misión y Visión: bloques apilados con separación */
+  .zigzag{display:flex;flex-direction:column;gap:clamp(2.5rem,6vw,4.5rem)}
+  /* Cada bloque: texto y foto lado a lado */
+  .zz{display:flex;align-items:center;gap:clamp(1.5rem,5vw,4rem)}
+  .zz.der{flex-direction:row-reverse}                 /* el segundo bloque va abajo a la derecha */
+  /* Columna de texto, ocupa la mitad */
+  .zz-texto{flex:1 1 0;min-width:0}
+  /* Espacio bajo el título */
+  .zz-texto h2{margin-bottom:1rem}
+  /* Párrafo con ancho máximo */
+  .zz-texto p{max-width:34rem;font-size:1.1rem}
+  /* Recuadro de foto: proporción 4:3, centrado */
+  .zz-foto{flex:1 1 0;min-width:0;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;text-align:center;
+    /* Borde punteado, fondo translúcido y recorte de lo que se salga */
+    border:2px dashed rgba(255,255,255,.8);background:rgba(255,255,255,.12);font-size:.95rem;overflow:hidden}
+  /* La imagen rellena el recuadro sin deformarse */
+  .zz-foto img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Reglas solo para pantallas de celular (760px o menos) */
+  @media (max-width:760px){
+    /* En celular: texto y foto en columna */
+    .zz,.zz.der{flex-direction:column;align-items:stretch}
+    /* Recuadro de foto: proporción 4:3, centrado */
+    .zz-foto{width:100%}
+  }
+
+  /* ---------- Asociados (5 fotos con descripción) ---------- */
+  /* Contenedor de los 5 asociados: se acomodan en fila y bajan de línea si no caben, centrados */
+  .asociados{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem clamp(1rem,2.5vw,2rem);margin-top:3rem}
+  /* Cada tarjeta: ancho flexible (base 170px, máx. 230px), texto centrado */
+  .asociado{flex:1 1 170px;max-width:230px;text-align:center}
+  /* Recuadro de la foto del asociado: proporción vertical 3:4 */
+  .asoc-foto{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;text-align:center;padding:.5rem;
+    /* Borde punteado y fondo translúcido (marcador de posición) */
+    border:2px dashed rgba(255,255,255,.8);background:rgba(255,255,255,.12);font-size:.9rem;overflow:hidden}
+  /* Cuando pongas una imagen, rellena el recuadro sin deformarse */
+  .asoc-foto img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Tipografía con serifa para títulos */
+  .asociado h3{font-family:var(--serif);font-size:1.4rem;margin-top:1rem;line-height:1.2}
+  /* Descripción del asociado */
+  .asociado p{font-size:.95rem;margin-top:.4rem}
+  /* Reglas solo para pantallas de celular (760px o menos) */
+  @media (max-width:760px){.asociado{flex-basis:calc(50% - 1rem);max-width:none}}
+  /* En celulares muy pequeños: 1 por fila */
+  @media (max-width:380px){.asociado{flex-basis:100%}}
+
+  /* ---------- Ajustes responsivos ---------- */
+  /* Evita que iPhone agrande el texto al girar la pantalla */
+  html{-webkit-text-size-adjust:100%}
+  /* Evita el desplazamiento horizontal */
+  body{overflow-x:hidden}
+  /* Sección principal (portada) */
+  #inicio{min-height:100vh;min-height:100svh}
+  /* Barra superior fija (menú) */
+  header{padding-top:max(.6rem,env(safe-area-inset-top))}
+  /* Permite partir el nombre si es muy largo */
+  .nombre{overflow-wrap:anywhere}
+  /* Separación entre datos de contacto */
+  #contacto li{overflow-wrap:anywhere}
+  /* Enlaces de contacto subrayados */
+  #contacto .datos a{text-decoration:underline;text-underline-offset:3px}
+  /* Más separación entre datos */
+  #contacto .datos li{margin-bottom:.8rem}
+  /* Botón flotante "Abrir asistente" en la esquina inferior derecha */
+  .chat-launch{right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom))}
+  /* La ventana del chat respeta las zonas seguras y su altura */
+  .chat{right:max(1rem,env(safe-area-inset-right));bottom:calc(4.6rem + env(safe-area-inset-bottom));max-height:min(620px,calc(100vh - 6.5rem));max-height:min(620px,calc(100dvh - 6.5rem))}
+  /* Evita que el scroll del chat mueva la página */
+  .chat-log{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  /* Parte palabras largas dentro de la burbuja */
+  .legal-message{overflow-wrap:anywhere}
+  /* Campo de texto del chat */
+  .chat-form input{font-size:1rem}
+  /* Botones de al menos 40px de alto para tocarlos fácil */
+  .chat-quick button,.chat-form button,.chat-wa{min-height:40px}
+  /* Reglas solo para pantallas grandes */
+  @media (min-width:1200px){
+    /* Chat más ancho */
+    .chat{width:420px}
+    /* Texto un poco mayor */
+    .legal-message{font-size:.98rem}
+  }
+  /* Reglas solo para pantallas de celular (760px o menos) */
+  @media (max-width:760px){
+    /* Botones y selector a todo el ancho */
+    .btn,.cita select{width:100%;text-align:center}
+    /* Botón del formulario sin margen superior ni fondo */
+    .cita .btn{width:100%}
+    /* El mapa ocupa todo el ancho del marco y mide 340px de alto */
+    .mapa iframe{height:260px}
+    /* Sección principal (portada) */
+    #inicio{padding-top:6.5rem}
+    /* Menos separación entre servicios */
+    .servicios{gap:1.6rem}
+    /* Asistente a pantalla casi completa en celular */
+    /* El chat ocupa casi todo el ancho */
+    .chat{left:.6rem;right:.6rem;width:auto;bottom:calc(4.2rem + env(safe-area-inset-bottom));max-height:calc(100vh - 5.5rem - env(safe-area-inset-bottom));max-height:calc(100dvh - 5.5rem - env(safe-area-inset-bottom));border-radius:14px}
+    /* Altura mínima del área de mensajes */
+    .chat-log{min-height:120px}
+    /* Botón flotante "Abrir asistente" en la esquina inferior derecha */
+    .chat-launch{padding:.75rem 1.2rem}
+  }
+  /* Reglas para pantallas muy pequeñas */
+  @media (max-width:380px){
+    /* Botón de pregunta rápida (redondeado) */
+    .chat-quick button{font-size:.78rem;padding:.3rem .6rem}
+    /* Nombre más pequeño */
+    .nombre{font-size:1rem}
+    /* Logo más pequeño */
+    .logo{height:38px}
+  }
+  /* Reglas para celular girado (poca altura) */
+  @media (max-height:520px) and (orientation:landscape){
+    /* Chat ajustado a la poca altura */
+    .chat{max-height:calc(100vh - 4.5rem);max-height:calc(100dvh - 4.5rem);bottom:3.8rem}
+    /* Área de mensajes más baja */
+    .chat-log{min-height:80px}
+  }
+  /* Si el usuario pide menos animaciones, se desactiva el desplazamiento suave */
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<!-- Fin del encabezado -->
+</head>
+<!-- Contenido visible de la página -->
+<body>
+
+<!-- Barra superior: logo, nombre y menú -->
+<header id="barra">
+  <!-- Enlace al inicio con logo (archivo logo.jpg, en la misma carpeta) y nombre -->
+  <a class="marca" href="#inicio" aria-label="Cuadrante y Asociados, inicio"><img class="logo" src="https://i.pinimg.com/736x/50/a9/61/50a961942bc459ef6b711c3210b0372a.jpg" alt="Logotipo de Cuadrante y Asociados"><span class="nombre">Cuadrante y Asociados</span></a>
+  <!-- Menú de navegación -->
+  <nav id="navegacion" aria-label="Principal">
+    <!-- Lista de enlaces del menú -->
+    <ul>
+      <!-- Enlace a la sección Inicio -->
+      <li><a href="#inicio">Inicio</a></li>
+      <!-- Enlace a Misión y visión -->
+      <li><a href="#mision-vision">Misión y visión</a></li>
+      <!-- Enlace a Servicios -->
+      <li><a href="#servicios">Servicios</a></li>
+      <!-- Enlace a Nosotros -->
+      <li><a href="#nosotros">Nosotros</a></li>
+      <!-- Enlace a Contacto -->
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+  <!-- Botón ☰ del menú en celular (el JavaScript lo abre y cierra) -->
+  <button id="menu" class="menu-btn" type="button" aria-expanded="false" aria-controls="navegacion" aria-label="Abrir menú">☰</button>
+</header>
+
+<!-- Capa con la imagen de fondo de la portada (decorativa) -->
+<div id="fondo-inicio" aria-hidden="true"></div>
+
+<!-- Sección de portada -->
+<section id="inicio">
+  <!-- Título principal de la página -->
+  <h1>Asesoría jurídica con certeza y compromiso</h1>
+  <!-- Frase de apoyo -->
+  <p>Defendemos tus derechos con ética, estrategia y atención personalizada.</p>
+  <!-- Botón que baja a Contacto -->
+  <a class="btn" href="#contacto">Agenda una consulta</a>
+</section>
+
+<!-- Contenido principal -->
+<main>
+  <!-- Sección Misión y Visión -->
+  <section class="bloque" id="mision-vision">
+    <!-- Contenedor del zigzag -->
+    <div class="zigzag">
+
+      <!-- MISIÓN: arriba a la izquierda -->
+      <!-- Bloque de Misión: texto izquierda, foto derecha -->
+      <article class="zz">
+        <!-- Columna de texto -->
+        <div class="zz-texto">
+          <!-- Título Misión -->
+          <h2>Misión</h2>
+          <!-- Texto de la misión -->
+          <p>Brindar asesoría y representación jurídica de excelencia en materia civil, familiar y penal, protegiendo el patrimonio, la libertad y los derechos de nuestros clientes con estricto apego a la legalidad y la ética profesional. Nos enfocamos en ofrecer soluciones prácticas y efectivas que garanticen la tranquilidad y seguridad jurídica de quienes confían en nuestra firma.</p>
+        </div>
+        <!-- Para poner la foto: reemplaza el div por <div class="zz-foto"><img src="mision.jpg" alt="Misión"></div> -->
+        <!-- Espacio reservado para la foto -->
+        <div class="zz-foto" role="img" aria-label="Espacio reservado para foto de la misión">Espacio para foto</div>
+      </article>
+
+      <!-- VISIÓN: abajo a la derecha -->
+      <!-- Bloque de Visión: foto izquierda, texto derecha -->
+      <article class="zz der">
+        <!-- Columna de texto -->
+        <div class="zz-texto">
+          <!-- Título Visión -->
+          <h2>Visión</h2>
+          <!-- Texto de la visión -->
+          <p>Consolidarnos como un despacho jurídico líder y referente a nivel regional y nacional por nuestra efectividad, transparencia y calidad humana en el servicio legal. Aspiramos a crecer de la mano de la innovación y la actualización jurídica constante, destacándonos por la confianza que inspiramos en las ramas civil, familiar y penal.</p>
+        </div>
+        <!-- Para poner la foto: reemplaza el div por <div class="zz-foto"><img src="vision.jpg" alt="Visión"></div> -->
+        <!-- Espacio reservado para la foto -->
+        <div class="zz-foto" role="img" aria-label="Espacio reservado para foto de la visión">Espacio para foto</div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Sección de áreas de práctica -->
+  <section class="bloque" id="servicios">
+    <!-- Título de la sección -->
+    <h2>Áreas de práctica</h2>
+    <!-- Cuadrícula de servicios -->
+    <div class="servicios">
+      <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
+      <div><h3>Derecho civil</h3><p>Contratos, sucesiones, arrendamientos y controversias patrimoniales.</p><button type="button" class="link-btn" data-service="Derecho civil">Preguntar al asistente</button></div>
+      <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
+      <div><h3>Derecho familiar</h3><p>Divorcios, pensión alimenticia, custodia y convenios.</p><button type="button" class="link-btn" data-service="Derecho familiar">Preguntar al asistente</button></div>
+      <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
+      <div><h3>Derecho penal</h3><p>Defensa y asesoría en todas las etapas del procedimiento.</p><button type="button" class="link-btn" data-service="Derecho penal">Preguntar al asistente</button></div>
+      <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
+      <div><h3>Derecho mercantil</h3><p>Constitución de sociedades, cobranza y contratos comerciales.</p><button type="button" class="link-btn" data-service="Derecho mercantil">Preguntar al asistente</button></div>
+    </div>
+  </section>
+
+  <!-- Sección Quiénes somos -->
+  <section class="bloque" id="nosotros">
+    <!-- Título de la sección -->
+    <h2>Quiénes somos</h2>
+    <!-- Primer párrafo -->
+    <p>En Cuadrante y Asociados somos un despacho de abogados comprometido con ofrecer soluciones legales claras y honestas. Analizamos cada caso con estrategia y lo acompañamos de principio a fin.</p>
+    <!-- Segundo párrafo -->
+    <p>Te explicamos cada paso en un lenguaje sencillo, para que tomes decisiones con tranquilidad.</p>
+
+    <!-- Contenedor de los 5 asociados -->
+    <div class="asociados">
+      <!-- Tarjeta de un asociado: foto arriba y descripción abajo -->
+      <article class="asociado">
+        <!-- Espacio de la foto; para usar una imagen: <div class="asoc-foto"><img src="foto.jpg" alt="Nombre"></div> -->
+        <div class="asoc-foto">Foto del asociado</div>
+        <!-- Nombre del asociado (cámbialo) -->
+        <h3>Nombre del asociado</h3>
+        <!-- Descripción del asociado (cámbiala) -->
+        <p>Área de práctica y breve descripción de su experiencia.</p>
+      </article>
+      <!-- Tarjeta de un asociado: foto arriba y descripción abajo -->
+      <article class="asociado">
+        <!-- Espacio de la foto; para usar una imagen: <div class="asoc-foto"><img src="foto.jpg" alt="Nombre"></div> -->
+        <div class="asoc-foto">Foto del asociado</div>
+        <!-- Nombre del asociado (cámbialo) -->
+        <h3>Nombre del asociado</h3>
+        <!-- Descripción del asociado (cámbiala) -->
+        <p>Área de práctica y breve descripción de su experiencia.</p>
+      </article>
+      <!-- Tarjeta de un asociado: foto arriba y descripción abajo -->
+      <article class="asociado">
+        <!-- Espacio de la foto; para usar una imagen: <div class="asoc-foto"><img src="foto.jpg" alt="Nombre"></div> -->
+        <div class="asoc-foto">Foto del asociado</div>
+        <!-- Nombre del asociado (cámbialo) -->
+        <h3>Nombre del asociado</h3>
+        <!-- Descripción del asociado (cámbiala) -->
+        <p>Área de práctica y breve descripción de su experiencia.</p>
+      </article>
+      <!-- Tarjeta de un asociado: foto arriba y descripción abajo -->
+      <article class="asociado">
+        <!-- Espacio de la foto; para usar una imagen: <div class="asoc-foto"><img src="foto.jpg" alt="Nombre"></div> -->
+        <div class="asoc-foto">Foto del asociado</div>
+        <!-- Nombre del asociado (cámbialo) -->
+        <h3>Nombre del asociado</h3>
+        <!-- Descripción del asociado (cámbiala) -->
+        <p>Área de práctica y breve descripción de su experiencia.</p>
+      </article>
+      <!-- Tarjeta de un asociado: foto arriba y descripción abajo -->
+      <article class="asociado">
+        <!-- Espacio de la foto; para usar una imagen: <div class="asoc-foto"><img src="foto.jpg" alt="Nombre"></div> -->
+        <div class="asoc-foto">Foto del asociado</div>
+        <!-- Nombre del asociado (cámbialo) -->
+        <h3>Nombre del asociado</h3>
+        <!-- Descripción del asociado (cámbiala) -->
+        <p>Área de práctica y breve descripción de su experiencia.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Sección de contacto -->
+  <section class="bloque" id="contacto">
+    <!-- Título -->
+    <h2>Contacto</h2>
+    <!-- Lista de datos de contacto -->
+    <ul class="datos">
+      <!-- Teléfono: tel: permite llamar al tocar -->
+      <li><strong>Teléfono:</strong> <a href="tel:+525555550199">(55) 5555-0199</a></li>
+      <!-- Enlace directo a WhatsApp (wa.me + número) -->
+      <li><strong>WhatsApp directo:</strong> <a href="https://wa.me/525512345678" target="_blank" rel="noopener">+52 55 1234 5678</a></li>
+      <!-- Correo: mailto: abre el programa de correo -->
+      <li><strong>Correo electrónico:</strong> <a href="mailto:contacto@abarcalopez.com">contacto@abarcalopez.com</a></li>
+      <!-- Dirección del despacho -->
+      <li><strong>Ubicación:</strong> Av. Juárez No. 123, Piso 4, Col. Centro, Estado de México.</li>
+      <!-- Horario de atención -->
+      <li><strong>Horario de atención:</strong> Lunes a Viernes de 9:00 AM a 6:00 PM | Sábados de 9:00 AM a 2:00 PM (previa cita).</li>
+      <!-- Enlace que abre Google Maps -->
+      <li><a href="https://www.google.com/maps/search/?api=1&query=Av.+Ju%C3%A1rez+123+Col.+Centro+Estado+de+M%C3%A9xico" target="_blank" rel="noopener">Ver ubicación en Google Maps</a></li>
+    </ul>
+    <!-- Formulario de cita (no envía datos; abre el asistente) -->
+    <form id="contact-form" class="cita">
+      <!-- Etiqueta ligada a la lista -->
+      <label for="servicio">Solicita una cita: elige tu área de interés</label>
+      <!-- Fila con lista y botón -->
+      <div class="cita-fila">
+        <!-- Lista de áreas de interés -->
+        <select id="servicio">
+          <!-- Opción de la lista -->
+          <option>Derecho civil</option>
+          <!-- Opción de la lista -->
+          <option>Derecho familiar</option>
+          <!-- Opción de la lista -->
+          <option>Derecho penal</option>
+          <!-- Opción de la lista -->
+          <option>Derecho mercantil</option>
+        </select>
+        <!-- Botón que envía el formulario -->
+        <button class="btn" type="submit">Solicitar cita</button>
+      </div>
+      <!-- Aclaración sobre el formulario -->
+      <small>Este formulario no envía datos: abre el asistente con la información para contactar al despacho.</small>
+    </form>
+    <!-- Marco del mapa -->
+    <div class="mapa">
+      <!-- Mapa de Google incrustado -->
+      <iframe title="Ubicación de Cuadrante y Asociados" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Av.+Ju%C3%A1rez+123+Col.+Centro+Estado+de+M%C3%A9xico&z=16&output=embed"></iframe>
+    </div>
+  </section>
+</main>
+
+<!-- Pie de página -->
+<footer>© 2026 Los Watch Dogs. Todos los derechos reservados.</footer>
+
+<!-- Botón flotante que abre/cierra el asistente -->
+<button id="legal-launch" class="chat-launch" type="button" aria-expanded="false" aria-controls="legal-chat">Abrir asistente</button>
+<!-- Ventana del asistente (oculta hasta abrirla) -->
+<aside id="legal-chat" class="chat" role="dialog" aria-labelledby="legal-title" hidden>
+  <!-- Encabezado del chat -->
+  <div class="chat-head">
+    <!-- Título del chat (lo llena el JavaScript) -->
+    <strong id="legal-title"></strong>
+    <!-- Botón × para cerrar -->
+    <button id="legal-close" type="button" aria-label="Cerrar asistente">×</button>
+  </div>
+  <!-- Zona donde aparecen los mensajes -->
+  <div id="legal-log" class="chat-log" role="log" aria-live="polite"></div>
+  <!-- Preguntas rápidas -->
+  <div class="chat-quick">
+    <!-- Pregunta rápida (data-question es lo que se envía al asistente) -->
+    <button type="button" data-question="Áreas de práctica">Áreas de práctica</button>
+    <!-- Pregunta rápida (data-question es lo que se envía al asistente) -->
+    <button type="button" data-question="Honorarios">Honorarios</button>
+    <!-- Pregunta rápida (data-question es lo que se envía al asistente) -->
+    <button type="button" data-question="Horarios">Horarios</button>
+    <!-- Pregunta rápida (data-question es lo que se envía al asistente) -->
+    <button type="button" data-question="Ubicación">Ubicación</button>
+    <!-- Pregunta rápida (data-question es lo que se envía al asistente) -->
+    <button type="button" data-question="Solicitar cita">Solicitar cita</button>
+  </div>
+  <!-- Botón de WhatsApp (se muestra si hay número válido) -->
+  <a id="legal-contact" class="chat-wa" target="_blank" rel="noopener noreferrer" hidden>Contactar por WhatsApp</a>
+  <!-- Formulario para escribir al asistente -->
+  <form id="legal-form" class="chat-form">
+    <!-- Etiqueta solo para lectores de pantalla -->
+    <label class="sr-only" for="legal-input">Tu pregunta</label>
+    <!-- Campo de texto (máximo 300 caracteres) -->
+    <input id="legal-input" type="text" maxlength="300" autocomplete="off" placeholder="Escribe tu pregunta">
+    <!-- Botón enviar -->
+    <button type="submit">Enviar</button>
+  </form>
+  <!-- Pie del chat: aviso de privacidad -->
+  <p id="legal-footer" class="chat-foot"></p>
+<!-- Fin de la ventana del asistente -->
+</aside>
+
+<script>
+  // La imagen de inicio se desvanece al bajar y deja ver el azul cielo
+  // Guarda la capa de la imagen de fondo
+  const fondo = document.getElementById('fondo-inicio');
+  // Guarda la barra superior
+  const barra = document.getElementById('barra');
+  // Se ejecuta con el scroll: ajusta la imagen y la barra
+  function actualizar(){
+    // Cuántos píxeles se ha bajado
+    const y = window.scrollY;
+    const fin = window.innerHeight * 0.85;      // al llegar aquí ya no se ve la imagen
+    // Opacidad de 1 a 0 según el scroll
+    fondo.style.opacity = Math.max(0, 1 - y / fin);
+    // Activa la barra sólida pasados 40px
+    barra.classList.toggle('solid', y > 40);
+  }
+  // Llama a actualizar al hacer scroll
+  window.addEventListener('scroll', actualizar, {passive:true});
+  // Y al cambiar el tamaño de la ventana
+  window.addEventListener('resize', actualizar);
+  // Primera ejecución al cargar
+  actualizar();
+</script>
+<script>
+// Función que se ejecuta sola y mantiene las variables privadas
+(() => {
+  // Modo estricto: avisa de errores comunes
+  'use strict';
+
+  // ============================================================
+  // CONFIGURACIÓN DEL DESPACHO
+  // ============================================================
+  // Datos del despacho que usa el asistente: edítalos aquí
+  const CONFIG = {
+    // Nombre mostrado en el chat
+    nombre: 'Cuadrante y Asociados',
+    // Texto de las áreas de práctica
+    servicios: 'Áreas de práctica: Derecho civil, Derecho familiar, Derecho penal y Derecho mercantil.',
+    // Texto de horarios
+    horarios: 'Horarios: lunes a viernes de 9:00 AM a 6:00 PM y sábados de 9:00 AM a 2:00 PM (previa cita).',
+    // Texto de dirección
+    direccion: 'Dirección: Av. Juárez No. 123, Piso 4, Col. Centro, Estado de México.',
+    whatsapp: '525512345678', // Código de país y número, solo dígitos (ej. 5255XXXXXXXX). No escribas un número ficticio.
+    telefono: '(55) 5555-0199', // Opcional. Texto libre, ej. '55 1234 5678'.
+    // Correo mostrado
+    correo: 'contacto@abarcalopez.com',
+    privacidad: '' // URL HTTPS del aviso de privacidad publicado por el despacho.
+  };
+
+  // Honorarios de referencia en pesos mexicanos (MXN).
+  // Para cambiar un precio, edita solo el número correspondiente.
+  // Precios de referencia por área en MXN: edita solo el número
+  const HONORARIOS = {
+    // Honorarios de Derecho civil
+    civil: {
+      // Nombre del área
+      titulo: 'Derecho civil',
+      // Lista de [servicio, precio]
+      items: [
+        // Un servicio con su precio
+        ['Consulta inicial', 900],
+        // Un servicio con su precio
+        ['Asesoría legal', 5500],
+        // Un servicio con su precio
+        ['Juicios y litigios', 50000]
+      ]
+    },
+    // Honorarios de Derecho familiar
+    familiar: {
+      // Nombre del área
+      titulo: 'Derecho familiar',
+      // Lista de [servicio, precio]
+      items: [
+        // Un servicio con su precio
+        ['Consulta inicial', 900],
+        // Un servicio con su precio
+        ['Divorcio administrativo / mutuo acuerdo', 10000],
+        // Un servicio con su precio
+        ['Divorcio incausado o con hijos', 40000],
+        // Un servicio con su precio
+        ['Divorcio contencioso', 70000],
+        // Un servicio con su precio
+        ['Pérdida de patria potestad', 15000]
+      ]
+    },
+    // Honorarios de Derecho penal
+    penal: {
+      // Nombre del área
+      titulo: 'Derecho penal',
+      // Lista de [servicio, precio]
+      items: [
+        // Un servicio con su precio
+        ['Consulta', 900],
+        // Un servicio con su precio
+        ['Asistencia a un detenido', 12000],
+        // Un servicio con su precio
+        ['Defensa en audiencia inicial', 20000],
+        // Un servicio con su precio
+        ['Juicio o defensa completa', 15000],
+        // Un servicio con su precio
+        ['Juicio de amparo o en materia penal', 37000]
+      ]
+    },
+    // Honorarios de Derecho mercantil
+    mercantil: {
+      // Nombre del área
+      titulo: 'Derecho mercantil',
+      // Lista de [servicio, precio]
+      items: [
+        // Un servicio con su precio
+        ['Consulta', 900],
+        // Un servicio con su precio
+        ['Dictamen o análisis especializado', 7000],
+        // Un servicio con su precio
+        ['Juicios o litigios mercantiles', 12000]
+      ]
+    }
+  };
+
+  // Aviso legal que acompaña a los precios
+  const NOTA_HONORARIOS = 'Los montos son de referencia, en pesos mexicanos (MXN), y no incluyen IVA. El despacho confirma el costo final según las particularidades de cada caso, antes de contratar.';
+
+  // Palabras clave para detectar el área de interés (texto ya normalizado, sin acentos).
+  // Palabras clave (expresiones regulares) para detectar el área
+  const AREAS = {
+    // Palabras de civil
+    civil: /\b(civil|civiles|contrato|contratos|arrendamiento|desalojo|herencia|herencias|sucesion|testamento|deuda|deudas|escrituras)\b/,
+    // Palabras de familiar
+    familiar: /\b(familia|familiar|familiares|divorcio|divorcios|pension|alimentos|custodia|patria|potestad|convivencia|hijos)\b/,
+    // Palabras de penal
+    penal: /\b(penal|penales|detenido|detencion|denuncia|amparo|audiencia|delito|delitos|carpeta|defensa)\b/,
+    // Palabras de mercantil
+    mercantil: /\b(mercantil|mercantiles|comercial|empresa|empresas|pagare|cheque|cheques|sociedad|dictamen)\b/
+  };
+
+  // Respuesta que da el asistente por cada área
+  const DESCRIPCION_AREAS = {
+    // Descripción civil
+    civil: 'Derecho civil: asesoría y representación en asuntos como contratos, arrendamientos, deudas, herencias y juicios civiles.',
+    // Descripción familiar
+    familiar: 'Derecho familiar: divorcios, pensión alimenticia, custodia, convivencia y pérdida de patria potestad.',
+    // Descripción penal
+    penal: 'Derecho penal: asistencia a detenidos, defensa en audiencias y juicios, y juicio de amparo en materia penal.',
+    // Descripción mercantil
+    mercantil: 'Derecho mercantil: dictámenes, análisis especializados y litigios mercantiles.'
+  };
+
+  // ============================================================
+  // ELEMENTOS DE LA PÁGINA
+  // ============================================================
+  // Atajo para buscar un elemento por su id
+  const el = id => document.getElementById(id);
+  // Guarda la ventana, el campo de texto y el registro de mensajes
+  const panel = el('legal-chat'), input = el('legal-input'), log = el('legal-log');
+  // Guarda el botón flotante
+  const launch = el('legal-launch');
+  // true si el número tiene 10 a 15 dígitos
+  const whatsappValido = /^\d{10,15}$/.test(CONFIG.whatsapp);
+
+  // Pone el nombre del despacho en el título del chat
+  el('legal-title').textContent = CONFIG.nombre;
+
+  // Solo se envía este mensaje genérico, nunca el contenido escrito en el chat.
+  // Si el número es válido, se activa el botón de WhatsApp
+  if (whatsappValido) {
+    // Toma el botón de WhatsApp
+    const a = el('legal-contact');
+    // Enlace con mensaje genérico (nunca el texto del chat)
+    a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent('Hola. Quisiera información para solicitar una cita.');
+    // Muestra el botón
+    a.hidden = false;
+  }
+
+  // Si hay una URL https de privacidad
+  if (CONFIG.privacidad.startsWith('https://')) {
+    // Crea el enlace
+    const a = document.createElement('a');
+    // Texto y destino del enlace
+    a.href = CONFIG.privacidad; a.textContent = 'Aviso de privacidad';
+    // Se abre en pestaña nueva de forma segura
+    a.target = '_blank'; a.rel = 'noopener noreferrer';
+    // Agrega el enlace al pie
+    el('legal-footer').append(a);
+  // Si no hay URL, muestra un aviso de demostración
+  } else {
+    // Aviso: configurar privacidad antes de publicar
+    el('legal-footer').textContent = 'Demostración: configura el aviso de privacidad antes de publicar.';
+  }
+
+  // ============================================================
+  // UTILIDADES
+  // ============================================================
+  // Agrega una burbuja al chat (usuario = true si la escribió el visitante)
+  function mensaje(texto, usuario = false) {
+    // Crea el párrafo
+    const p = document.createElement('p');
+    // Clase según quién habla
+    p.className = 'legal-message' + (usuario ? ' legal-user' : '');
+    p.style.whiteSpace = 'pre-line'; // respeta los saltos de línea de las listas
+    // El texto del visitante se muestra como texto, sin interpretarlo como HTML.
+    // textContent evita interpretar HTML (seguridad)
+    p.textContent = (usuario ? 'Tú: ' : 'Asistente: ') + texto;
+    // Lo agrega al registro
+    log.append(p);
+    // Conserva solo los últimos 60 mensajes
+    while (log.children.length > 60) log.firstElementChild.remove();
+    // Baja al último mensaje
+    log.scrollTop = log.scrollHeight;
+  }
+
+  // Minúsculas y sin acentos para comparar
+  function normalizar(texto) {
+    // Convierte y quita acentos
+    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  // Da formato de pesos
+  function dinero(n) {
+    // Ej. $5,500 MXN
+    return '$' + n.toLocaleString('es-MX') + ' MXN';
+  }
+
+  // Devuelve el área que menciona el texto
+  function detectarArea(t) {
+    // Recorre cada área
+    for (const clave of Object.keys(AREAS)) {
+      // Si coincide, devuelve esa área
+      if (AREAS[clave].test(t)) return clave;
+    }
+    // Si ninguna coincide
+    return null;
+  }
+
+  // Texto de precios de una área
+  function bloqueHonorarios(clave) {
+    // Toma los datos del área
+    const a = HONORARIOS[clave];
+    // Título y una viñeta por servicio
+    return a.titulo + '\n' + a.items.map(([nombre, precio]) => '• ' + nombre + ': ' + dinero(precio)).join('\n');
+  }
+
+  // Arma la respuesta de honorarios
+  function textoHonorarios(area) {
+    // Un área o todas
+    const claves = area ? [area] : Object.keys(HONORARIOS);
+    // Une los bloques
+    const cuerpo = claves.map(bloqueHonorarios).join('\n\n');
+    // Frase final según el caso
+    const cierre = area
+      // Si preguntó por un área
+      ? '¿Quieres conocer los honorarios de otra área? Pregúntame por civil, familiar, penal o mercantil.'
+      // Si preguntó en general
+      : 'Si te interesa un área en particular, pregúntame por ella.';
+    // Respuesta completa con la nota legal
+    return 'Honorarios de referencia:\n\n' + cuerpo + '\n\n' + NOTA_HONORARIOS + '\n' + cierre;
+  }
+
+  // Respuesta sobre cómo pedir una cita
+  function textoContacto() {
+    // Si no hay contacto configurado
+    if (!whatsappValido && !CONFIG.telefono) {
+      // Mensaje de contacto no configurado
+      return 'El contacto para solicitar citas todavía no está configurado en esta demostración.';
+    }
+    // Empieza la respuesta
+    let r = 'Para solicitar una cita, ';
+    // Menciona WhatsApp o teléfono
+    r += whatsappValido ? 'utiliza el botón de WhatsApp' : 'comunícate por teléfono';
+    // Agrega el teléfono
+    if (CONFIG.telefono) r += (whatsappValido ? ' o llama al ' : ' al ') + CONFIG.telefono;
+    // Agrega correo y horario
+    r += ' o escribe a ' + CONFIG.correo + '. ' + CONFIG.horarios + ' El equipo confirmará disponibilidad; aún no hay una cita reservada.';
+    // Devuelve la respuesta
+    return r;
+  }
+
+  // ============================================================
+  // RESPUESTAS APROBADAS
+  // ============================================================
+  // Decide la respuesta según palabras clave (en orden de prioridad)
+  function responder(texto) {
+    // Texto normalizado
+    const t = normalizar(texto);
+    // Área detectada
+    const area = detectarArea(t);
+
+    // 1) Urgencias (detenciones, policía): prioridad máxima.
+    // 1) Urgencias o detenciones
+    if (/\b(detenido|detenida|detuvieron|detienen|arrestaron|arrestado|arrestada|policia|policias|ministerio|urgente|urgencia)\b/.test(t)) {
+      // Pide contactar de inmediato al despacho
+      return 'Si se trata de una detención o una urgencia, comunícate de inmediato con el despacho para coordinar asistencia'
+        // Menciona WhatsApp si hay
+        + (whatsappValido ? ' por WhatsApp' : '')
+        // Menciona el teléfono
+        + (CONFIG.telefono ? (whatsappValido ? ' o al ' : ' al ') + CONFIG.telefono : '')
+        // Recuerda el 911 y no compartir datos confidenciales
+        + '. En caso de emergencia, llama al 911. No compartas aquí información confidencial del caso.'
+        // Precio de referencia de asistir a un detenido
+        + '\n\nHonorarios de referencia por asistencia a un detenido: ' + dinero(12000) + ' más IVA (sujeto a confirmación del despacho).';
+    }
+
+    // 2) Honorarios (antes que servicios, para que "cuánto cuesta un divorcio" muestre precios).
+    // 2) Honorarios
+    if (/\b(honorarios|precio|precios|costo|costos|cuesta|cuestan|cobran|cobra|tarifa|tarifas|cuanto)\b/.test(t)) {
+      // Responde con precios
+      return textoHonorarios(area);
+    }
+
+    // 3) Citas y contacto.
+    // 3) Citas y contacto
+    if (/\b(cita|citas|agendar|consulta|consultas|contacto|contactar|telefono|whatsapp|llamar)\b/.test(t)) {
+      // Responde cómo contactar
+      return textoContacto();
+    }
+
+    // 4) Servicios en general o por área.
+    // 4) Servicios en general
+    if (/\b(servicios|areas|practica|ayudan|ayudar|casos)\b/.test(t) && !area) {
+      // Lista las áreas
+      return CONFIG.servicios + '\n\nPuedes preguntarme por civil, familiar, penal o mercantil, o por los honorarios de cada área.';
+    }
+    // Si mencionó un área concreta
+    if (area) {
+      // Describe el área
+      return DESCRIPCION_AREAS[area] + '\n\nPuedo informarte sobre sus honorarios de referencia o cómo solicitar una cita. Para revisar tu caso, contacta al despacho sin compartir aquí información confidencial.';
+    }
+
+    // 5) Horarios y ubicación.
+    // 5) Horarios
+    if (/\b(horario|horarios|abren|cierran|atienden|hora|sabado|sabados)\b/.test(t)) return CONFIG.horarios;
+    // Ubicación
+    if (/\b(ubicacion|direccion|oficina|oficinas|donde|llegar|mapa)\b/.test(t)) return CONFIG.direccion;
+
+    // 6) Saludo.
+    // 6) Saludo
+    if (/\b(hola|buenas|buenos|buen)\b/.test(t)) {
+      // Responde el saludo
+      return 'Hola. Puedo informarte sobre áreas de práctica, honorarios, horarios, ubicación y solicitudes de cita. Elige una opción o escribe tu pregunta.';
+    }
+
+    // 7) Respuesta por defecto.
+    // 7) Respuesta por defecto
+    return 'No tengo una respuesta aprobada para esa pregunta. Puedo informar sobre áreas de práctica, honorarios, horarios, ubicación y citas. Para revisar un caso, contacta al despacho sin compartir aquí información confidencial.';
+  }
+
+  // Procesa lo que se escribe o se pulsa
+  function enviar(texto) {
+    // Quita espacios y limita a 300 caracteres
+    texto = texto.trim().slice(0, 300);
+    // Ignora mensajes vacíos
+    if (!texto) return;
+    // Muestra la pregunta y luego la respuesta
+    mensaje(texto, true); mensaje(responder(texto));
+  }
+
+  // Abre o cierra el chat
+  function abrir(abierto) {
+    // Muestra u oculta la ventana
+    panel.hidden = !abierto;
+    // Informa el estado a lectores de pantalla
+    launch.setAttribute('aria-expanded', String(abierto));
+    // Cambia el texto del botón
+    launch.textContent = abierto ? 'Cerrar asistente' : 'Abrir asistente';
+    // Al abrir, enfoca el campo; al cerrar, regresa al botón
+    if (abierto) input.focus(); else launch.focus();
+  }
+
+  // ============================================================
+  // EVENTOS
+  // ============================================================
+  // Botones de servicios: abren el chat y envían su área
+  document.querySelectorAll('[data-service]').forEach(b => b.addEventListener('click', () => { abrir(true); enviar(b.dataset.service); }));
+  // Formulario de cita: abre el chat y pide cita
+  el('contact-form').addEventListener('submit', e => { e.preventDefault(); abrir(true); enviar('Cita para ' + el('servicio').value); });
+  // Botón ☰: abre/cierra el menú
+  el('menu').addEventListener('click', () => { const open = el('navegacion').classList.toggle('open'); el('menu').setAttribute('aria-expanded', String(open)); });
+  // Al elegir un enlace, el menú se cierra
+  el('navegacion').querySelectorAll('a').forEach(a => a.addEventListener('click', () => { el('navegacion').classList.remove('open'); el('menu').setAttribute('aria-expanded', 'false'); }));
+  // Botón flotante alterna el chat
+  launch.addEventListener('click', () => abrir(panel.hidden));
+  // Botón × cierra el chat
+  el('legal-close').addEventListener('click', () => abrir(false));
+  // Tecla Escape cierra el chat
+  panel.addEventListener('keydown', e => { if (e.key === 'Escape') abrir(false); });
+  // Al enviar: manda el texto, limpia y enfoca el campo
+  el('legal-form').addEventListener('submit', e => {
+    e.preventDefault(); enviar(input.value); input.value = ''; input.focus();
+  });
+  // Botones de preguntas rápidas
+  panel.querySelectorAll('[data-question]').forEach(b => {
+    // Al pulsar, envía su pregunta
+    b.addEventListener('click', () => enviar(b.dataset.question));
+  });
+
+  // Mensaje inicial
+  mensaje('Bienvenido. Soy el asistente automatizado del despacho. Te puedo informar sobre áreas de práctica, honorarios, horarios y citas. Este asistente no ofrece asesoría legal. ¿Qué información necesitas?');
+// Fin de la función autoejecutable
+})();
+
+</script>
+<!-- Fin del contenido visible -->
+</body>
+<!-- Fin del documento -->
+</html>
