@@ -414,7 +414,7 @@
           <!-- Título Misión -->
           <h2>Misión</h2>
           <!-- Texto de la misión -->
-          <p>Brindar asesoría y representación jurídica de excelencia en materia civil, familiar y penal, protegiendo el patrimonio, la libertad y los derechos de nuestros clientes con estricto apego a la legalidad y la ética profesional. Nos enfocamos en ofrecer soluciones prácticas y efectivas que garanticen la tranquilidad y seguridad jurídica de quienes confían en nuestra firma.</p>
+          <p>Brindar asesoría y representación jurídica de excelencia en materia civil, familiar, penal y laboral, protegiendo el patrimonio, la libertad y los derechos de nuestros clientes con estricto apego a la legalidad y la ética profesional. Nos enfocamos en ofrecer soluciones prácticas y efectivas que garanticen la tranquilidad y seguridad jurídica de quienes confían en nuestra firma.</p>
         </div>
         <!-- Para poner la foto: reemplaza el div por <div class="zz-foto"><img src="mision.jpg" alt="Misión"></div> -->
         <!-- Espacio reservado para la foto -->
@@ -429,7 +429,7 @@
           <!-- Título Visión -->
           <h2>Visión</h2>
           <!-- Texto de la visión -->
-          <p>Consolidarnos como un despacho jurídico líder y referente a nivel regional y nacional por nuestra efectividad, transparencia y calidad humana en el servicio legal. Aspiramos a crecer de la mano de la innovación y la actualización jurídica constante, destacándonos por la confianza que inspiramos en las ramas civil, familiar y penal.</p>
+          <p>Consolidarnos como un despacho jurídico líder y referente a nivel regional y nacional por nuestra efectividad, transparencia y calidad humana en el servicio legal. Aspiramos a crecer de la mano de la innovación y la actualización jurídica constante, destacándonos por la confianza que inspiramos en las ramas civil, familiar, penal y laboral.</p>
         </div>
         <!-- Para poner la foto: reemplaza el div por <div class="zz-foto"><img src="vision.jpg" alt="Visión"></div> -->
         <!-- Espacio reservado para la foto -->
@@ -451,6 +451,8 @@
       <div><h3>Derecho familiar</h3><p>Divorcios, pensión alimenticia, custodia y convenios.</p><button type="button" class="link-btn" data-service="Derecho familiar">Preguntar al asistente</button></div>
       <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
       <div><h3>Derecho penal</h3><p>Defensa y asesoría en todas las etapas del procedimiento.</p><button type="button" class="link-btn" data-service="Derecho penal">Preguntar al asistente</button></div>
+      <!-- Servicio: título, descripción y botón que abre el asistente (data-service es el texto que se envía) -->
+      <div><h3>Derecho laboral</h3><p>Despidos, liquidaciones y finiquitos, conciliación, demandas laborales y prestaciones.</p><button type="button" class="link-btn" data-service="Derecho laboral">Preguntar al asistente</button></div>
     </div>
   </section>
 
@@ -545,6 +547,8 @@
           <option>Derecho familiar</option>
           <!-- Opción de la lista -->
           <option>Derecho penal</option>
+          <!-- Opción de la lista -->
+          <option>Derecho laboral</option>
         </select>
         <!-- Botón que envía el formulario -->
         <button class="btn" type="submit">Solicitar cita</button>
@@ -642,7 +646,7 @@
     // Nombre mostrado en el chat
     nombre: 'Cuadrante y Asociados',
     // Texto de las áreas de práctica
-    servicios: 'Áreas de práctica: Derecho civil, Derecho familiar, Derecho penal y Derecho mercantil.',
+    servicios: 'Áreas de práctica: Derecho civil, Derecho familiar, Derecho penal y Derecho laboral.',
     // Texto de horarios
     horarios: 'Horarios: lunes a viernes de 9:00 AM a 6:00 PM y sábados de 9:00 AM a 2:00 PM (previa cita).',
     // Texto de dirección
@@ -708,18 +712,20 @@
         ['Juicio de amparo o en materia penal', 37000]
       ]
     },
-    // Honorarios de Derecho mercantil
-    mercantil: {
+    // Honorarios de Derecho laboral
+    laboral: {
       // Nombre del área
-      titulo: 'Derecho mercantil',
+      titulo: 'Derecho laboral',
       // Lista de [servicio, precio]
       items: [
         // Un servicio con su precio
-        ['Consulta', 900],
+        ['Consulta inicial', 900],
         // Un servicio con su precio
-        ['Dictamen o análisis especializado', 7000],
+        ['Asesoría y cálculo de liquidación o finiquito', 3500],
         // Un servicio con su precio
-        ['Juicios o litigios mercantiles', 12000]
+        ['Conciliación prejudicial (Centro de Conciliación)', 8000],
+        // Un servicio con su precio
+        ['Demanda o juicio laboral', 25000]
       ]
     }
   };
@@ -736,8 +742,8 @@
     familiar: /\b(familia|familiar|familiares|divorcio|divorcios|pension|alimentos|custodia|patria|potestad|convivencia|hijos)\b/,
     // Palabras de penal
     penal: /\b(penal|penales|detenido|detencion|denuncia|amparo|audiencia|delito|delitos|carpeta|defensa)\b/,
-    // Palabras de mercantil
-    mercantil: /\b(mercantil|mercantiles|comercial|empresa|empresas|pagare|cheque|cheques|sociedad|dictamen)\b/
+    // Palabras de laboral
+    laboral: /\b(laboral|laborales|trabajo|trabajador|trabajadora|trabajadores|despido|despidieron|despidio|despedido|despedida|liquidacion|finiquito|salario|sueldo|renuncia|renunciar|aguinaldo|vacaciones|prestaciones|indemnizacion|reinstalacion|conciliacion|patron|patrones|empresa|empresas|imss|infonavit|acoso|hostigamiento)\b/
   };
 
   // Respuesta que da el asistente por cada área
@@ -748,8 +754,8 @@
     familiar: 'Derecho familiar: divorcios, pensión alimenticia, custodia, convivencia y pérdida de patria potestad.',
     // Descripción penal
     penal: 'Derecho penal: asistencia a detenidos, defensa en audiencias y juicios, y juicio de amparo en materia penal.',
-    // Descripción mercantil
-    mercantil: 'Derecho mercantil: dictámenes, análisis especializados y litigios mercantiles.'
+    // Descripción laboral
+    laboral: 'Derecho laboral: asesoría y representación en despidos, liquidaciones y finiquitos, conciliación prejudicial, demandas laborales, prestaciones (aguinaldo, vacaciones, prima vacacional) y casos de acoso o discriminación en el trabajo. En muchos casos de despido existen plazos cortos para reclamar, por lo que conviene consultar pronto al despacho.'
   };
 
   // ============================================================
@@ -855,7 +861,7 @@
     // Frase final según el caso
     const cierre = area
       // Si preguntó por un área
-      ? '¿Quieres conocer los honorarios de otra área? Pregúntame por civil, familiar, penal o mercantil.'
+      ? '¿Quieres conocer los honorarios de otra área? Pregúntame por civil, familiar, penal o laboral.'
       // Si preguntó en general
       : 'Si te interesa un área en particular, pregúntame por ella.';
     // Respuesta completa con la nota legal
@@ -924,7 +930,7 @@
     // 4) Servicios en general
     if (/\b(servicios|areas|practica|ayudan|ayudar|casos)\b/.test(t) && !area) {
       // Lista las áreas
-      return CONFIG.servicios + '\n\nPuedes preguntarme por civil, familiar, penal o mercantil, o por los honorarios de cada área.';
+      return CONFIG.servicios + '\n\nPuedes preguntarme por civil, familiar, penal o laboral, o por los honorarios de cada área.';
     }
     // Si mencionó un área concreta
     if (area) {
